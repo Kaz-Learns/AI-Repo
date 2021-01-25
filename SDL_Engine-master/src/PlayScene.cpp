@@ -17,7 +17,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::draw()
 {
-	if(EventManager::Instance().isIMGUIActive())
+	if(EventManager::Instance().isIMGUIActive() )
 	{
 		GUI_Function();
 	}
@@ -55,6 +55,14 @@ void PlayScene::handleEvents()
 			{
 				m_pPlayer->setAnimationState(PLAYER_RUN_LEFT);
 				m_playerFacingRight = false;
+			}
+			else if (EventManager::Instance().getGameController(0)->LEFT_STICK_Y > deadZone)
+			{
+				m_pPlayer->setAnimationState(PLAYER_RUN_UP);
+			}
+			else if (EventManager::Instance().getGameController(0)->LEFT_STICK_Y < -deadZone)
+			{
+				m_pPlayer->setAnimationState(PLAYER_RUN_DOWN);
 			}
 			else
 			{
@@ -116,6 +124,7 @@ void PlayScene::handleEvents()
 
 void PlayScene::start()
 {
+	
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
 	
@@ -201,6 +210,8 @@ void PlayScene::GUI_Function() const
 		std::cout << float3[2] << std::endl;
 		std::cout << "---------------------------\n";
 	}
+
+	
 	
 	ImGui::End();
 

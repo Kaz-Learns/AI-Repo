@@ -53,7 +53,17 @@ void Player::draw()
 		TextureManager::Instance()->playAnimation("spritesheet", getAnimation("run"),
 			x, y, 0.25f, 0, 255, true, SDL_FLIP_HORIZONTAL);
 		break;
+	/*case PLAYER_RUN_UP:
+		TextureManager::Instance()->playAnimation("spritesheet", getAnimation("run"),
+			x, y, 0.25f, 0, 255, true);
+		break;
+	case PLAYER_RUN_DOWN:
+		TextureManager::Instance()->playAnimation("spritesheet", getAnimation("run"),
+			x, y, 0.25f, 0, 255, true, SDL_FLIP_HORIZONTAL);*/
+		break;
 	default:
+		TextureManager::Instance()->playAnimation("spritesheet", getAnimation("idle"),
+			x, y, 0.12f, 0, 255, true);
 		break;
 	}
 	
@@ -61,6 +71,22 @@ void Player::draw()
 
 void Player::update()
 {
+	if (m_currentAnimationState == PLAYER_RUN_RIGHT)
+	{
+		getTransform()->position += glm::vec2(5.0f, 0.0f);
+	}
+	if (m_currentAnimationState == PLAYER_RUN_LEFT)
+	{
+		getTransform()->position += glm::vec2(-5.0f, 0.0f);
+	}
+	if (m_currentAnimationState == PLAYER_RUN_UP)
+	{
+		getTransform()->position += glm::vec2(0.0f, 5.0f);
+	}
+	if (m_currentAnimationState == PLAYER_RUN_DOWN)
+	{
+		getTransform()->position += glm::vec2(0.0f, -5.0f);
+	}
 }
 
 void Player::clean()
